@@ -3,14 +3,16 @@
 Follow these steps to set up the autosleep service:
 
 -- Prepare manifest: https://github.com/cloudfoundry-community/autosleep/blob/develop/doc/publish.md#prepare-your-manifest
-    * You will need a CC API user with cloudcontroller.admin scope
-    * Ignore the paragraph beginning "Autosleep service needs properties to work." This is a holdover from a previous version.
-    * Other than the CC API user info (cf.client.username and cf.client.password), all values are created from the manifest, so you can set them however you want.
-    * You will need to first create the database service and include the service name in the services section (ie mysql)
+* You will need a CC API user with cloudcontroller.admin scope
+* Ignore the paragraph beginning "Autosleep service needs properties to work." This is a holdover from a previous version.
+* Other than the CC API user info (cf.client.username and cf.client.password), all values are created from the manifest, so you can set them however you want.
+* You will need to first create the database service and include the service name in the services section (ie mysql)
     
 -- Deploy autosleep app
-    * 'cf push -f manifest.yml'
-    * You do not need to create a wildcard route, this is in regards to the autowakeup application
+* 'cf push -f manifest.yml'
+* If you are pushing the autowake-app, you will need to create the wildcare route.
+  * cf create-route <autosleep-space> mydomain.org -n '*'
+  * cf map-route autowakeup-app mydomain.org --hostname '*'
 
 -- Publish on the market place: https://github.com/cloudfoundry-community/autosleep/blob/develop/doc/publish.md#publish-on-the-market-place
     * you will need to expose the plan into all orgs (this is another area we might want to look into automating)
