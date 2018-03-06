@@ -1,0 +1,9 @@
+domain: cf.ns.nd-paas.itn.ftgroup
+buildpack: https://github.com/cloudfoundry/java-buildpack
+
+applications:
+- name: autowakeup-app
+  memory: 1G
+  instances: 1
+  host: autowakeup
+  path: org.cloudfoundry.autosleep.autowakeup-proxy-1.1.0.war

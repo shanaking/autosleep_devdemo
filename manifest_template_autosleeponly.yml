@@ -1,0 +1,30 @@
+domain: cf.ns.nd-paas.itn.ftgroup
+buildpack: https://github.com/cloudfoundry/java-buildpack
+env:
+  security.user.name: <security username>
+  security.user.password: <security password>
+  cf.client.target.host: <hostname>
+  cf.client.skip.ssl.validation: false
+  cf.client.username: <username>
+  cf.client.password: <password>
+  cf.client.clientId: <client_id>
+  cf.client.clientSecret: <client_secret>
+  cf.security.password.encodingSecret: <password_encoding_secret>
+  cf.service.broker.id: autosleep
+  cf.service.broker.name: autosleep
+  cf.service.plan.id: default
+  cf.service.plan.name: default
+  autosleep.debug: autosleep
+  JAVA_OPTS: >
+    -Dlogging.level.org.springframework.web.filter.CommonsRequestLoggingFilter=ERROR
+
+services:
+  - <mysql or postgresql>
+applications:
+- name: autosleep-app
+  memory: 1G
+  instances: 1
+  host: autosleep
+  path: org.cloudfoundry.autosleep.autosleep-core-1.1.0.war
+  env:
+    autowakeup.skip.ssl.validation: false
