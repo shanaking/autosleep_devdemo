@@ -39,7 +39,7 @@ Example command sequence for deploying in org autosleep-test, space autosleep. T
 * cf target -o autosleep-test -s autosleep
 * cf create-service p-mysql 100mb mysql
 * cf push
-* cf create-service-broker autosleep autosleepsecurity autosleepsecurity http://autosleep2.apps.opsman.fallingup.rocks
+* cf create-service-broker autosleep autosleepsecurity autosleepsecurity <autosleep-app url>
 * cf enable-service-access autosleep
 * cf target -s test-apps
 * cf create-service autosleep default my-autosleep -c '{"idle-duration": "PT0H02M"}'
