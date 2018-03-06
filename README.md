@@ -15,20 +15,20 @@ Follow these steps to set up the autosleep service:
   * cf map-route autowakeup-app mydomain.org --hostname '*'
 
 -- Publish on the market place: https://github.com/cloudfoundry-community/autosleep/blob/develop/doc/publish.md#publish-on-the-market-place
-    * you will need to expose the plan into all orgs (this is another area we might want to look into automating)
+* you will need to expose the plan into all orgs (this is another area we might want to look into automating)
     
 -- Create autosleep service instance: https://github.com/cloudfoundry-community/autosleep#create-your-autosleep-service-instance
-    * Look through the advanced configuration parameters.  For testing, you would likely want to at least change the idle-duration.  
-    * For my two minute test, I created the service with:
-       * cf create-service autosleep default my-autosleep -c '{"idle-duration": "PT0H02M"}'
+* Look through the advanced configuration parameters.  For testing, you would likely want to at least change the idle-duration.  
+* For my two minute test, I created the service with:
+  * cf create-service autosleep default my-autosleep -c '{"idle-duration": "PT0H02M"}'
     * The service will need to be created in each space.
  
  
  Note about ignoring the healthcheck: This might take a little adjustment.  
 The autosleep app determines if an app is inactive by looking at the start and stop events and the timestamps on the app logs.
 Some issues I discovered:
-   * One app was consistently failing the healthcheck for some reason.  This resulted in additional logs being emitted, which meant the app was not turned off.
-   * An app did not have a /health endpoint, but did have a 404 re-direct, which resulted in additional logging, which resulted in the app not being turned off.
+* One app was consistently failing the healthcheck for some reason.  This resulted in additional logs being emitted, which meant the app was not turned off.
+* An app did not have a /health endpoint, but did have a 404 re-direct, which resulted in additional logging, which resulted in the app not being turned off.
    
 If an app does not seem to be responding to the autosleep service, please send me the recent app logs.  We might need to add additional items other than /health to the ignore function.
 This will be easier when it is a configurable option, but for testing purposes, please just forward to me.
